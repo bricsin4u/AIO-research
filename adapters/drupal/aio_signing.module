@@ -1,0 +1,250 @@
+<?php
+/**
+ * @file
+ * AIO Content Signing module for Drupal 9/10
+ * 
+ * Installation:
+ * 1. Create folder: modules/custom/aio_signing/
+ * 2. Copy this file as aio_signing.module
+ * 3. Create aio_signing.info.yml (see below)
+ * 4. Enable: drush en aio_signing
+ * 5. Configure: /admin/config/content/aio-signing
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_page_attachments_alter().
+ * Adds AIO meta tags to the <head>.
+ */
+function aio_signing_page_attachments_alter(array &$attachments) {
+  $config = \Drupal::config('aio_signing.settings');
+  
+  if (!$config->get('enabled')) {
+    return;
+  }
+  
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if (!$node instanceof NodeInterface) {
+    return;
+  }
+  
+  // Check if this content type is enabled
+  $enabled_types = $config->get('content_types') ?? ['article', 'page'];
+  if (!in_array($node->bundle(), $enabled_types)) {
+    return;
+  }
+  
+  $markdown = _aio_signing_generate_markdown($node);
+  $sign_result = _aio_signing_sign_content($markdown);
+  
+  if (!$sign_result) {
+    return;
+  }
+  
+  // Add meta tags
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'aio-truth-signature',
+        'content' => $sign_result['signature'],
+      ],
+    ],
+    'aio_signature',
+  ];
+  
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'aio-content-hash',
+        'content' => $sign_result['content_hash'],
+      ],
+    ],
+    'aio_hash',
+  ];
+  
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'aio-public-key',
+        'content' => $config->get('public_key') ?? '',
+      ],
+    ],
+    'aio_pubkey',
+  ];
+  
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'aio-last-verified',
+        'content' => $sign_result['timestamp'],
+      ],
+    ],
+    'aio_timestamp',
+  ];
+}
+
+/**
+ * Implements hook_page_bottom().
+ * Adds markdown shadow before </body>.
+ */
+function aio_signing_page_bottom(array &$page_bottom) {
+  $config = \Drupal::config('aio_signing.settings');
+  
+  if (!$config->get('enabled')) {
+    return;
+  }
+  
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if (!$node instanceof NodeInterface) {
+    return;
+  }
+  
+  $enabled_types = $config->get('content_types') ?? ['article', 'page'];
+  if (!in_array($node->bundle(), $enabled_types)) {
+    return;
+  }
+  
+  $markdown = _aio_signing_generate_markdown($node);
+  
+  $page_bottom['aio_shadow'] = [
+    '#type' => 'inline_template',
+    '#template' => '<section class="ai-only" aria-hidden="true" style="display:none!important"><script type="text/markdown" id="aio-narrative-content">{{ markdown }}</script></section>',
+    '#context' => ['markdown' => $markdown],
+  ];
+}
+
+/**
+ * Generate markdown from node.
+ */
+function _aio_signing_generate_markdown(NodeInterface $node) {
+  // Build Metadata
+  $metadata = [
+    'title' => $node->getTitle(),
+    'site_name' => \Drupal::config('system.site')->get('name'),
+    'author' => $node->getOwner()->getDisplayName(),
+    'date' => date('Y-m-d', $node->getCreatedTime()),
+    'url' => $node->toUrl()->setAbsolute()->toString(),
+  ];
+
+  // Get body field
+  $body_html = '';
+  if ($node->hasField('body') && !$node->get('body')->isEmpty()) {
+    $body_html = $node->get('body')->value;
+  }
+
+  // Extract Citations (External Links)
+  $citations = [];
+  if (preg_match_all('/<a[^>]*href=["\'](http[^"\']*)["\'][^>]*>/i', $body_html, $matches)) {
+      $site_host = \Drupal::request()->getHost();
+      foreach ($matches[1] as $href) {
+          if (strpos($href, $site_host) === false) {
+              if (!in_array($href, $citations)) {
+                  $citations[] = $href;
+              }
+          }
+      }
+  }
+  if (!empty($citations)) {
+      $metadata['citations'] = $citations;
+  }
+
+  // Generate Frontmatter
+  $markdown = "---\n";
+  foreach ($metadata as $key => $value) {
+      if ($key === 'citations') {
+          $markdown .= "citations:\n";
+          foreach ($value as $cite) {
+              $markdown .= "  - $cite\n";
+          }
+      } else {
+          $safe_value = str_replace('"', '\\"', $value);
+          $markdown .= "$key: \"$safe_value\"\n";
+      }
+  }
+  $markdown .= "---\n\n";
+  
+  // Body Content
+  if ($body_html) {
+    $markdown .= "## Content\n" . _aio_signing_html_to_markdown($body_html);
+  }
+  
+  // Get taxonomy terms
+  if ($node->hasField('field_tags')) {
+    $tags = [];
+    foreach ($node->get('field_tags')->referencedEntities() as $term) {
+      $tags[] = $term->getName();
+    }
+    if ($tags) {
+      $markdown .= "\n\n## Tags\n- " . implode("\n- ", $tags);
+    }
+  }
+  
+  return trim($markdown);
+}
+
+/**
+ * Sign content with Ed25519.
+ */
+function _aio_signing_sign_content($markdown) {
+  $config = \Drupal::config('aio_signing.settings');
+  $private_key = $config->get('private_key');
+  
+  if (empty($private_key)) {
+    return NULL;
+  }
+  
+  $timestamp = gmdate('Y-m-d\TH:i:s\Z');
+  $content_hash = hash('sha256', trim($markdown));
+  
+  $payload = json_encode([
+    'content_hash' => $content_hash,
+    'timestamp' => $timestamp,
+    'algorithm' => 'Ed25519',
+  ], JSON_UNESCAPED_SLASHES);
+  
+  try {
+    $key = base64_decode($private_key);
+    $signature = sodium_crypto_sign_detached($payload, $key);
+    
+    return [
+      'signature' => base64_encode($signature),
+      'content_hash' => $content_hash,
+      'timestamp' => $timestamp,
+    ];
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('aio_signing')->error('Signing failed: @error', ['@error' => $e->getMessage()]);
+    return NULL;
+  }
+}
+
+/**
+ * Convert HTML to Markdown.
+ */
+function _aio_signing_html_to_markdown($html) {
+  $html = preg_replace('/<h([1-6])[^>]*>(.*?)<\/h[1-6]>/i', str_repeat('#', '$1') . " $2\n\n", $html);
+  $html = preg_replace('/<p[^>]*>(.*?)<\/p>/is', "$1\n\n", $html);
+  $html = preg_replace('/<strong[^>]*>(.*?)<\/strong>/i', "**$1**", $html);
+  $html = preg_replace('/<em[^>]*>(.*?)<\/em>/i', "*$1*", $html);
+  $html = preg_replace('/<a[^>]*href=["\']([^"\']*)["\'][^>]*>(.*?)<\/a>/i', "[$2]($1)", $html);
+  $html = preg_replace('/<li[^>]*>(.*?)<\/li>/is', "- $1\n", $html);
+  $html = strip_tags($html);
+  return trim(preg_replace('/\n{3,}/', "\n\n", $html));
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for system settings.
+ */
+function aio_signing_form_system_site_information_settings_alter(&$form, FormStateInterface $form_state) {
+  // Add link to AIO settings
+  $form['aio_signing_link'] = [
+    '#markup' => '<p><a href="/admin/config/content/aio-signing">Configure AIO Signing</a></p>',
+    '#weight' => -100,
+  ];
+}

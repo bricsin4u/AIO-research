@@ -1,0 +1,124 @@
+{% comment %}
+  AIO Content Signing for Shopify
+  
+  Installation:
+  1. Copy this file to snippets/aio-signing.liquid
+  2. Include in theme.liquid before </head>: {% include 'aio-signing', type: 'head' %}
+  3. Include before </body>: {% include 'aio-signing', type: 'shadow' %}
+  
+  For product pages, also pass the product:
+    {% include 'aio-signing', type: 'head', product: product %}
+  
+  Note: Shopify Liquid cannot do cryptographic signing.
+  This generates the markdown shadow and hash only.
+  For full signing, use a Shopify app or serverless function.
+{% endcomment %}
+
+{% if type == 'head' %}
+  {% comment %} Generate content hash (simplified - use app for real signing) {% endcomment %}
+  
+  {% if product %}
+    {% assign aio_title = product.title %}
+    {% assign aio_description = product.description | strip_html | truncate: 500 %}
+    {% assign aio_author = shop.name %}
+    {% assign aio_date = product.created_at | date: '%Y-%m-%d' %}
+  {% elsif article %}
+    {% assign aio_title = article.title %}
+    {% assign aio_description = article.content | strip_html | truncate: 500 %}
+    {% assign aio_author = article.author %}
+    {% assign aio_date = article.published_at | date: '%Y-%m-%d' %}
+  {% elsif page %}
+    {% assign aio_title = page.title %}
+    {% assign aio_description = page.content | strip_html | truncate: 500 %}
+    {% assign aio_author = shop.name %}
+    {% assign aio_date = page.created_at | date: '%Y-%m-%d' %}
+  {% else %}
+    {% assign aio_title = page_title %}
+    {% assign aio_description = page_description %}
+    {% assign aio_author = shop.name %}
+    {% assign aio_date = 'now' | date: '%Y-%m-%d' %}
+  {% endif %}
+
+  <!-- AIO Trust Layer -->
+  <meta name="aio-content-hash" content="HASH_VIA_APP">
+  <meta name="aio-public-key" content="{{ shop.metafields.aio.public_key }}">
+  <meta name="aio-last-verified" content="{{ 'now' | date: '%Y-%m-%dT%H:%M:%SZ' }}">
+  <meta name="aio-signature-algorithm" content="SHA256-HASH">
+
+{% elsif type == 'shadow' %}
+  {% comment %} Markdown Shadow {% endcomment %}
+  
+  <section class="ai-only" aria-hidden="true" style="display:none!important">
+    <script type="text/markdown" id="aio-narrative-content">
+{% if product %}
+---
+title: "{{ product.title }}"
+store: "{{ shop.name }}"
+price: "{{ product.price | money }}"
+available: "{{ product.available }}"
+url: "{{ shop.url }}{{ product.url }}"
+---
+
+## Description
+{{ product.description | strip_html }}
+
+## Details
+- Vendor: {{ product.vendor }}
+- Type: {{ product.type }}
+- SKU: {{ product.selected_or_first_available_variant.sku }}
+
+{% if product.tags.size > 0 %}
+## Tags
+{% for tag in product.tags %}- {{ tag }}
+{% endfor %}
+{% endif %}
+
+{% elsif article %}
+---
+title: "{{ article.title }}"
+author: "{{ article.author }}"
+date: "{{ article.published_at | date: '%Y-%m-%d' }}"
+url: "{{ shop.url }}{{ article.url }}"
+---
+
+## Content
+{{ article.content | strip_html }}
+
+{% if article.tags.size > 0 %}
+## Tags
+{% for tag in article.tags %}- {{ tag }}
+{% endfor %}
+{% endif %}
+
+{% elsif page %}
+---
+title: "{{ page.title }}"
+date: "{{ page.created_at | date: '%Y-%m-%d' }}"
+url: "{{ shop.url }}{{ page.url }}"
+---
+
+{{ page.content | strip_html }}
+
+{% elsif collection %}
+---
+title: "{{ collection.title }}"
+url: "{{ shop.url }}{{ collection.url }}"
+---
+
+{{ collection.description | strip_html }}
+
+## Products in this collection
+{% for product in collection.products limit: 20 %}
+- {{ product.title }} - {{ product.price | money }}
+{% endfor %}
+
+{% else %}
+---
+title: "{{ page_title }}"
+description: "{{ page_description }}"
+---
+
+{% endif %}
+    </script>
+  </section>
+{% endif %}

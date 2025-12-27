@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIO Benchmark Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #555;
+            text-align: center;
+        }
+        .metric-highlight {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .danger {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>AIO Experiment Results: Visual Analysis</h1>
+
+    <div class="dashboard">
+        
+        <!-- Chart 1: Token Economy -->
+        <div class="card">
+            <h2>The Token Economy (Cost to Crawl)</h2>
+            <canvas id="tokenChart"></canvas>
+            <div class="metric-highlight">
+                AIO Reduces Token Cost by <span style="font-size: 1.2em;">65%</span>
+            </div>
+        </div>
+
+        <!-- Chart 2: Stupidity Index -->
+        <div class="card">
+            <h2>Stupidity Index (G) - Cognitive Load</h2>
+            <canvas id="stupidityChart"></canvas>
+            <div class="metric-highlight">
+                <span class="danger">Classic SEO (G=0.65)</span> vs <span style="color:#27ae60">AIO (G=0.00)</span>
+            </div>
+        </div>
+
+        <!-- Chart 3: Signal to Noise -->
+        <div class="card">
+            <h2>Signal vs. Noise Ratio</h2>
+            <canvas id="noiseChart"></canvas>
+            <p style="text-align: center; font-size: 0.9em; margin-top: 10px; color: #777;">
+                Comparison of useful "Signal" tokens vs. wasted "Noise" tokens.
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        // Data from benchmark_results.json
+        const data = {
+            classic: { tokens: 854, g: 0.648, noise: 553, signal: 301 },
+            hybrid: { tokens: 301, g: 0.000, noise: 0, signal: 301 },
+            pure: { tokens: 301, g: 0.000, noise: 0, signal: 301 }
+        };
+
+        // 1. Token Chart
+        const ctxToken = document.getElementById('tokenChart').getContext('2d');
+        new Chart(ctxToken, {
+            type: 'bar',
+            data: {
+                labels: ['Classic SEO', 'Hybrid AIO', 'Pure AIO'],
+                datasets: [{
+                    label: 'Tokens Consumed per Page',
+                    data: [data.classic.tokens, data.hybrid.tokens, data.pure.tokens],
+                    backgroundColor: ['#e74c3c', '#3498db', '#2ecc71'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: { y: { beginAtZero: true, title: { display: true, text: 'Tokens' } } },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // 2. Stupidity Index Chart
+        const ctxG = document.getElementById('stupidityChart').getContext('2d');
+        new Chart(ctxG, {
+            type: 'bar',
+            data: {
+                labels: ['Classic SEO', 'Hybrid AIO', 'Pure AIO'],
+                datasets: [{
+                    label: 'Stupidity Index (G)',
+                    data: [data.classic.g, data.hybrid.g, data.pure.g],
+                    backgroundColor: ['#e74c3c', '#2ecc71', '#2ecc71'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: { 
+                    y: { 
+                        beginAtZero: true, 
+                        max: 1.0,
+                        title: { display: true, text: 'G-Index (0.7 = Singularity)' } 
+                    } 
+                },
+                plugins: { 
+                    annotation: {
+                        annotations: {
+                            line1: {
+                                type: 'line',
+                                yMin: 0.7,
+                                yMax: 0.7,
+                                borderColor: 'red',
+                                borderWidth: 2,
+                                label: { content: 'Singularity Threshold', enabled: true }
+                            }
+                        }
+                    },
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // 3. Noise Chart (Stacked)
+        const ctxNoise = document.getElementById('noiseChart').getContext('2d');
+        new Chart(ctxNoise, {
+            type: 'bar',
+            data: {
+                labels: ['Classic SEO', 'Hybrid AIO', 'Pure AIO'],
+                datasets: [
+                    {
+                        label: 'Signal (Useful Content)',
+                        data: [data.classic.signal, data.hybrid.signal, data.pure.signal],
+                        backgroundColor: '#2ecc71'
+                    },
+                    {
+                        label: 'Noise (DOM/Scripts/Ads)',
+                        data: [data.classic.noise, data.hybrid.noise, data.pure.noise],
+                        backgroundColor: '#95a5a6'
+                    }
+                ]
+            },
+            options: {
+                scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } },
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+    </script>
+</body>
+</html>

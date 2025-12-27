@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 
+    AIO SITEMAP STRATEGY:
+    1. Prioritize Pure AIO and Hybrid pages (High Information Density)
+    2. Deprioritize Classic/Legacy pages (High Noise)
+    3. Ensure <lastmod> is current to trigger re-crawling
+  -->
+
+  <!-- Tier 1: Pure AIO Content (Highest Priority) -->
+  <url>
+    <loc>http://localhost:8000/test_pure_aio.html</loc>
+    <lastmod>2025-12-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Tier 2: Hybrid Content (High Priority) -->
+  <url>
+    <loc>http://localhost:8000/test_hybrid.html</loc>
+    <lastmod>2025-12-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Tier 3: Classic/Legacy Content (Lower Priority) -->
+  <url>
+    <loc>http://localhost:8000/test_classic.html</loc>
+    <lastmod>2025-12-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Discovery Layer: AI Manifest -->
+  <url>
+    <loc>http://localhost:8000/.well-known/ai-instructions.json</loc>
+    <lastmod>2025-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>

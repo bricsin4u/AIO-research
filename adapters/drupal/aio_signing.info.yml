@@ -1,0 +1,9 @@
+name: 'AIO Content Signing'
+type: module
+description: 'Automatically signs content for AI optimization'
+core_version_requirement: ^9 || ^10
+package: Content
+configure: aio_signing.settings
+
+dependencies:
+  - drupal:node

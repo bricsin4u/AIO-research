@@ -1,0 +1,23 @@
+{
+  "CLASSIC": {
+    "avg_duration_ms": 2080.65,
+    "avg_tokens": 854,
+    "avg_bytes": 8769,
+    "noise_ratio": 0.648,
+    "g_index": 0.648
+  },
+  "HYBRID": {
+    "avg_duration_ms": 2078.5,
+    "avg_tokens": 301,
+    "avg_bytes": 10749,
+    "noise_ratio": 0.0,
+    "g_index": 0.0
+  },
+  "PURE_AIO": {
+    "avg_duration_ms": 2077.47,
+    "avg_tokens": 301,
+    "avg_bytes": 5895,
+    "noise_ratio": 0.0,
+    "g_index": 0.0
+  }
+}

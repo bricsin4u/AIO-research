@@ -1,0 +1,39 @@
+# AIO-Optimized Robots.txt
+# This file is configured to explicitly welcome AI Agents and LLM Crawlers
+# to the AIO-optimized sections of the site.
+
+# 1. Standard Web Crawlers
+User-agent: *
+Allow: /
+
+# 2. AI & LLM Specific Agents (Explicit Allow)
+# OpenAI
+User-agent: GPTBot
+Allow: /
+Allow: /test_pure_aio.html
+Allow: /test_hybrid.html
+
+# Google Gemini / Vertex AI
+User-agent: Google-Extended
+Allow: /
+Allow: /test_pure_aio.html
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Common Crawl (Training Data for most LLMs)
+User-agent: CCBot
+Allow: /
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+Allow: /
+
+# 3. Discovery Layer Pointers
+# Standard Sitemap
+Sitemap: http://localhost:8000/sitemap.xml
+
+# AIO Manifest (The "Brain" of the site)
+# Note: This is a proposed standard for AIO discovery
+Allow: /.well-known/ai-instructions.json

@@ -1,0 +1,42 @@
+/* Standard styles for the AIO implementation */
+:root {
+    --bg-dark: #0a0a0b;
+    --text-primary: #f4f4f5;
+    --accent-blue: #3b82f6;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+}
+
+body {
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, sans-serif;
+    margin: 0;
+    padding: 2rem;
+    line-height: 1.6;
+}
+
+/* 
+   AIO Specific: Hiding the AI blocks from human users 
+   but keeping them in the DOM for crawlers/agents that don't execute JS 
+   or explicitly look for these markers.
+*/
+.ai-only {
+    display: none !important;
+}
+
+.content-card {
+    background: var(--glass-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    backdrop-filter: blur(10px);
+}
+
+.heading-gradient {
+    background: linear-gradient(to right, #60a5fa, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIO Methodology Demo | AIFUSION</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="ai-instructions" href="/.well-known/ai-instructions.json">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+
+    <!-- LAYER 1: STRUCTURAL (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "AIO Methodology Documentation",
+      "description": "A new methodology for AI-native SEO and content delivery.",
+      "mainEntity": {
+        "@type": "Article",
+        "headline": "Why AIO is the future of Search",
+        "author": {
+          "@type": "Organization",
+          "name": "AIFUSION"
+        }
+      }
+    }
+    </script>
+
+    <!-- LAYER 4: TRUTH HEADER (Cryptographic verification) -->
+    <!-- 
+        AIO Trust System v2.0:
+        - aio-truth-signature: Ed25519 signature (or SHA-256 hash for basic mode)
+        - aio-content-hash: SHA-256 hash of markdown content
+        - aio-public-key: Publisher's public key (Ed25519, base64)
+        - aio-last-verified: ISO 8601 timestamp of signing
+        - aio-signature-algorithm: Algorithm used (Ed25519 or SHA256-HASH)
+        
+        In production, also send as HTTP Headers:
+        X-AIO-Truth-Signature, X-AIO-Content-Hash, X-AIO-Public-Key
+    -->
+    <meta name="aio-truth-signature" content="eCr+Jhlf1UGFlS7VnaYzwCvRyRCaQNrhfxKe6Vy+KEp1F9deXBpJix6x4dc63mLFaT6lQHtVu2o6IXIdXGoKAw==">
+    <meta name="aio-content-hash" content="f21bb4acfd0deadfd1195e4f7cf8b916c11ada120db01727c2477425943aaf92">
+    <meta name="aio-public-key" content="Exdb5yXl3Jv+lG5LyOHkPCLQyrOD+54Ju+aFtMxQwLE=">
+    <meta name="aio-last-verified" content="2025-12-22T08:41:28Z">
+    <meta name="aio-signature-algorithm" content="Ed25519">
+</head>
+
+<body>
+
+    <main class="content-card">
+        <h1 class="heading-gradient">The AIO Methodology</h1>
+
+        <p>Traditional SEO is dead. In the era of LLMs and Perplexity, your website needs to be
+            <strong>AI-Optimized</strong>.
+        </p>
+
+        <div id="content-area" hx-trigger="load" hx-get="/api/sample-content" hx-swap="innerHTML">
+            <!-- Content loaded via HTMX for human users -->
+            <p>Loading optimized content...</p>
+        </div>
+
+        <button hx-get="/api/details" hx-target="#details" class="btn">
+            Explore Deep Structure
+        </button>
+        <div id="details"></div>
+    </main>
+
+    <!-- LAYER 2: NARRATIVE (AI SHADOW / MARKDOWN) -->
+    <!-- This block is invisible to humans but high-fidelity for AI Agents -->
+    <section class="ai-only" aria-hidden="true" id="aio-content-narrative">
+        <script type="text/markdown" id="ai-narrative-content">
+# AIO Methodology: The Technical Breakdown
+
+## Problem Statement
+AI agents often encounter "messy" HTML, making extraction unreliable. AIO solves this by providing a high-fidelity Markdown layer.
+
+## The Strategy
+1. **JSON-LD**: For rigid schema-based data.
+2. **Markdown Blocks**: For narrative and context.
+3. **AI-Instructions**: For discovery.
+
+## Implementation Details
+- Content is wrapped in `<script type="text/markdown">`
+- The `ai-only` CSS class hides this from users.
+- Agents can ingest this block directly as "Ground Truth".
+        </script>
+
+        <!-- LAYER 4: VERIFICATION BLOCK (Detailed proof) -->
+        <div id="aio-verification-block">
+            <p>Verification status: Cryptographically Signed</p>
+            <p>Signature Method: SHA-256</p>
+            <p>Source Authority: AIFUSION Trust Engine</p>
+            <ul id="aio-ground-truth-sources">
+                <li>https://aifusion.ru/research/aio-v1</li>
+                <li>https://schema.org/Article</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 AIFUSION Research Lab</p>
+    </footer>
+
+</body>
+
+</html>
