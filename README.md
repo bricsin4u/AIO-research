@@ -118,8 +118,9 @@ MIT — Free for commercial use.
 
 **Igor Sergeevich Petrenko**  
 Founder, AIFUSION Research & IN4U (BRICS Platform)  
-Contact: research@aifusion.ru
+
 
 ---
 
 *Making the web AI-native, one page at a time.*
+
