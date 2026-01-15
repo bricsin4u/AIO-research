@@ -1,0 +1,12 @@
+{
+  "name": "aifusion.ru AIO Manifest",
+  "notice": "AI AGENT RESOURCE MAP. Use specialized endpoints for high-fidelity data.",
+  "links": [
+    {
+      "type": "application/vnd.aio+json",
+      "rel": "alternate",
+      "url": "https://aifusion.ru/aio/index.aio",
+      "description": "Clean-text machine-readable payload for /aio/"
+    }
+  ]
+}

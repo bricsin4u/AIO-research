@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# AIO v2 Discovery: Machine-Readable Sidecar
+AIO: /index.aio
+Sitemap: https://aifusion.ru/aio/sitemap.xml
