@@ -69,7 +69,8 @@ Deploy AIO in minutes using our ecosystem plugins:
 ## Specifications & Research
 
 - **Technical Spec**: [AIO v2.1 Protocol](specs/aio-schema-v2.1.md)
-- **Theoretical Base**: [Theory of Stupidity (G-Model)](research/cognitive-vulnerability.html)
+- **Theoretical Base**: [Theory of Stupidity (G-Model)](https://aifusion.ru/research/cognitive-vulnerability.html)
 - **Full Manuscript**: [Unified ECIA Paper](private_manuscript/Unified_AIO_ECR_Paper.md)
 
 &copy; 2026 AIFUSION Research Laboratory.
+
