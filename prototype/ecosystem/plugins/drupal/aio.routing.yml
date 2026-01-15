@@ -1,0 +1,15 @@
+aio.content:
+  path: '/ai-content.aio'
+  defaults:
+    _controller: '\Drupal\aio\Controller\AIOController::content'
+    _title: 'AIO Content'
+  requirements:
+    _permission: 'access content'
+
+aio.manifest:
+  path: '/ai-manifest.json'
+  defaults:
+    _controller: '\Drupal\aio\Controller\AIOController::manifest'
+    _title: 'AIO Manifest'
+  requirements:
+    _permission: 'access content'

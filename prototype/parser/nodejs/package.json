@@ -1,0 +1,23 @@
+{
+    "name": "aio-parser",
+    "version": "1.0.0",
+    "description": "Node.js client for the AI Optimization (AIO) protocol",
+    "main": "src/index.js",
+    "scripts": {
+        "test": "node test.js"
+    },
+    "keywords": [
+        "aio",
+        "ai",
+        "parser",
+        "scraping",
+        "seo"
+    ],
+    "author": "AIFUSION Research",
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^1.6.0",
+        "cheerio": "^1.0.0-rc.12",
+        "turndown": "^7.1.1"
+    }
+}

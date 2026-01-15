@@ -1,0 +1,38 @@
+{
+  "$schema": "https://aio-standard.org/schema/v2.1/manifest.json",
+  "aio_version": "2.1",
+  
+  "site": {
+    "name": "TechStartup Demo",
+    "domain": "techstartup-demo.com",
+    "description": "B2B SaaS platform for project management and team collaboration. Demo site for AIO protocol validation.",
+    "language": "en",
+    "last_updated": "2026-01-15T01:00:00Z"
+  },
+  
+  "content": {
+    "primary": "/ai-content.aio",
+    "chunks_count": 5,
+    "total_tokens_estimate": 1410,
+    "supports_range_requests": false
+  },
+  
+  "trust": {
+    "public_key": "MCowBQYDK2VwAyEA_DEMO_PUBLIC_KEY_PLACEHOLDER",
+    "algorithm": "Ed25519",
+    "key_id": "techstartup-demo-2026-01"
+  },
+  
+  "policy": {
+    "allow_training": true,
+    "allow_caching": true,
+    "cache_ttl_seconds": 3600,
+    "attribution_required": true,
+    "attribution_text": "Source: TechStartup Demo (AIO Protocol Validation)"
+  },
+  
+  "contact": {
+    "technical": "research@aifusion.ru",
+    "abuse": "research@aifusion.ru"
+  }
+}

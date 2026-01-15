@@ -1,0 +1,16 @@
+# Standard robots.txt directives
+User-agent: *
+Allow: /
+
+# Disallow common noise paths
+Disallow: /admin/
+Disallow: /api/internal/
+
+# Sitemap
+Sitemap: https://techstartup-demo.com/sitemap.xml
+
+# AIO Discovery Directives (v2.1)
+# These directives enable AI agents to discover machine-optimized content
+AIO-Manifest: /ai-manifest.json
+AIO-Content: /ai-content.aio
+AIO-Version: 2.1

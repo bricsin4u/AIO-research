@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="4.0" client="site" method="upgrade">
+    <name>AI Discovery (AIO)</name>
+    <author>AIFUSION Research</author>
+    <creationDate>January 2026</creationDate>
+    <copyright>Copyright (C) 2026 AIFUSION Research.</copyright>
+    <license>MIT</license>
+    <version>1.0.0</version>
+    <description>Automatically adds AIO Discovery headers and provides content endpoints.</description>
+    
+    <files>
+        <filename module="mod_aio">mod_aio.php</filename>
+        <filename>helper.php</filename>
+        <folder>tmpl</folder>
+    </files>
+    
+    <config>
+    </config>
+</extension>

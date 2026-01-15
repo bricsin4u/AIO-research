@@ -1,0 +1,6 @@
+name: 'AIO Protocol'
+type: module
+description: 'Automatically generates AIO-compliant content envelopes for AI search engines.'
+core_version_requirement: ^9 || ^10
+package: 'SEO'
+configure: aio.settings

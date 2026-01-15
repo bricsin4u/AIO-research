@@ -1,0 +1,64 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\NodeInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+/**
+ * Implements hook_help().
+ */
+function aio_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name === 'help.page.aio') {
+    return '<p>' . t('Provides AIO Protocol support for AI search discovery.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function aio_page_attachments(array &$attachments) {
+  // Add discovery link to head
+  $attachments['#attached']['html_head_link'][] = [
+    [
+      'rel' => 'alternate',
+      'type' => 'application/aio+json',
+      'href' => '/ai-content.aio',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_robotstxt().
+ * (Requires Robotstxt module, otherwise manual edit needed)
+ */
+function aio_robotstxt() {
+  return [
+    "# AIO Discovery",
+    "AIO-Manifest: /ai-manifest.json",
+    "AIO-Content: /ai-content.aio",
+    "AIO-Version: 2.1",
+  ];
+}
+
+/**
+ * Prepares AIO chunk from a node.
+ */
+function _aio_process_node(NodeInterface $node) {
+  // Get rendered content (simplified)
+  $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+  $build = $view_builder->view($node, 'full');
+  $render = \Drupal::service('renderer')->renderPlain($build);
+  
+  // Strip tags for clean text
+  $clean_text = strip_tags($render);
+  $title = $node->getTitle();
+  
+  return [
+    'id' => 'node-' . $node->id(),
+    'path' => $node->toUrl()->toString(),
+    'title' => $title,
+    'modified' => date('c', $node->getChangedTime()),
+    'content' => "# " . $title . "\n\n" . trim($clean_text),
+    'token_estimate' => (int)(strlen($clean_text) / 4),
+  ];
+}

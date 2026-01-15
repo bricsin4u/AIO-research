@@ -1,0 +1,16 @@
+routes:
+  /ai-content.aio/:
+    template: ai-content
+    content_type: application/json
+  /ai-manifest.json/:
+    template: ai-manifest
+    content_type: application/json
+
+collections:
+  /:
+    permalink: /{slug}/
+    template: index
+
+taxonomies:
+  tag: /tag/{slug}/
+  author: /author/{slug}/

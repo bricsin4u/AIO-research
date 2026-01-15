@@ -1,0 +1,30 @@
+{
+"$schema": "https://aio-standard.org/schema/v2.1/content.json",
+"aio_version": "2.1",
+"generated": "{{date format="YYYY-MM-DDTHH:mm:ssZ"}}",
+"index": [
+{{#get "posts" limit="all" order="updated_at desc"}}
+{{#foreach posts}}
+{
+"id": "{{id}}",
+"path": "{{url}}",
+"title": "{{title}}",
+"token_estimate": 0,
+"modified": "{{date updated_at format="YYYY-MM-DDTHH:mm:ssZ"}}"
+}{{#unless @last}},{{/unless}}
+{{/foreach}}
+{{/get}}
+],
+"content": [
+{{#get "posts" limit="all" order="updated_at desc"}}
+{{#foreach posts}}
+{
+"id": "{{id}}",
+"format": "html",
+"content": {{{json html}}},
+"hash": "sha256:dynamic"
+}{{#unless @last}},{{/unless}}
+{{/foreach}}
+{{/get}}
+]
+}

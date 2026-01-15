@@ -1,0 +1,101 @@
+{
+  "$schema": "https://aio-standard.org/schema/v2.1/content.json",
+  "aio_version": "2.1",
+  "generated": "2026-01-15T01:00:00Z",
+  
+  "signature": {
+    "algorithm": "Ed25519",
+    "key_id": "techstartup-demo-2026-01",
+    "value": "PLACEHOLDER_SIGNATURE_FOR_DEMO",
+    "covers": "index+content"
+  },
+  
+  "index": [
+    {
+      "id": "home",
+      "path": "/",
+      "title": "TechStartup - Project Management Platform",
+      "keywords": ["project management", "SaaS", "collaboration", "teams", "productivity", "enterprise", "cloud"],
+      "summary": "TechStartup is a B2B SaaS platform offering cloud-based project management and team collaboration tools for mid-size to enterprise teams.",
+      "content_type": "article",
+      "token_estimate": 180,
+      "priority": 1.0,
+      "related": ["features", "pricing"]
+    },
+    {
+      "id": "pricing",
+      "path": "/pricing",
+      "title": "Pricing Plans",
+      "keywords": ["price", "pricing", "cost", "subscription", "free", "pro", "enterprise", "monthly", "annual", "$12", "plan", "tier"],
+      "summary": "Three pricing tiers: Free (up to 5 users, $0), Pro ($12/user/month with unlimited users), Enterprise (custom pricing with SSO and dedicated support).",
+      "content_type": "product",
+      "token_estimate": 380,
+      "priority": 0.95,
+      "related": ["features"]
+    },
+    {
+      "id": "features",
+      "path": "/features",
+      "title": "Platform Features",
+      "keywords": ["features", "kanban", "gantt", "timeline", "integrations", "API", "mobile", "reporting", "time tracking", "slack", "jira"],
+      "summary": "Core features include Kanban boards, Gantt charts, time tracking, 50+ integrations (Slack, Jira, GitHub), REST API, and mobile apps for iOS/Android.",
+      "content_type": "product",
+      "token_estimate": 420,
+      "priority": 0.9,
+      "related": ["pricing"]
+    },
+    {
+      "id": "about",
+      "path": "/about",
+      "title": "About TechStartup",
+      "keywords": ["about", "company", "team", "founded", "mission", "investors", "headquarters", "San Francisco", "Series B", "Sequoia"],
+      "summary": "Founded in 2022, headquartered in San Francisco. 150 employees, 2,500+ customers. Series B funded ($45M from Sequoia Capital).",
+      "content_type": "article",
+      "token_estimate": 280,
+      "priority": 0.6
+    },
+    {
+      "id": "contact",
+      "path": "/contact",
+      "title": "Contact Information",
+      "keywords": ["contact", "email", "phone", "support", "sales", "address", "demo", "help"],
+      "summary": "Sales: sales@techstartup.com. Support: support@techstartup.com. Demo requests available via website.",
+      "content_type": "contact",
+      "token_estimate": 150,
+      "priority": 0.7
+    }
+  ],
+  
+  "content": [
+    {
+      "id": "home",
+      "format": "markdown",
+      "content": "# TechStartup - Project Management Platform\n\n**Category:** B2B SaaS\n**Primary Function:** Project management and team collaboration\n\n## Overview\n\nTechStartup provides cloud-based project management tools designed for mid-size to enterprise teams. The platform combines task management, resource planning, and real-time collaboration.\n\n## Key Value Propositions\n\n- Unified workspace for distributed teams\n- Real-time collaboration with 99.9% uptime SLA\n- Enterprise-grade security (SOC 2 Type II certified)\n- 50+ native integrations\n\n---\nAIO-CHUNK-ID: home\nAIO-SOURCE: https://techstartup-demo.com/\nAIO-VERIFIED: 2026-01-15T01:00:00Z\n---",
+      "hash": "sha256:8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4"
+    },
+    {
+      "id": "pricing",
+      "format": "markdown",
+      "content": "# Pricing Plans\n\n**Currency:** USD\n**Billing Options:** Monthly or Annual (20% discount on annual)\n**Free Trial:** 14 days, no credit card required\n\n## Plan Comparison\n\n| Plan | Price | Users | Storage | Support |\n|:-----|:------|:------|:--------|:--------|\n| **Free** | $0 | Up to 5 | 1 GB | Community |\n| **Pro** | $12/user/month | Unlimited | 100 GB | Email (24h response) |\n| **Enterprise** | Custom | Unlimited | Unlimited | Dedicated CSM + Phone |\n\n## Free Plan Includes\n\n- Up to 5 users\n- 1 GB storage\n- Basic Kanban boards\n- Community support\n- Mobile apps\n\n## Pro Plan Includes\n\n- Unlimited users\n- 100 GB storage\n- Gantt charts & timelines\n- Email support (24h response)\n- 50+ integrations\n- REST API access\n- Time tracking\n\n## Enterprise Features\n\n- Single Sign-On (SAML 2.0)\n- Custom integrations\n- Dedicated infrastructure option\n- 99.99% uptime SLA\n- On-premise deployment available\n- SOC 2 Type II certified\n\n---\nAIO-CHUNK-ID: pricing\nAIO-SOURCE: https://techstartup-demo.com/pricing\nAIO-VERIFIED: 2026-01-15T01:00:00Z\n---",
+      "hash": "sha256:2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae"
+    },
+    {
+      "id": "features",
+      "format": "markdown",
+      "content": "# Platform Features\n\n## Project Management\n\n| Feature | Description |\n|:--------|:------------|\n| **Kanban Boards** | Drag-and-drop task management with custom columns and swimlanes |\n| **Gantt Charts** | Timeline visualization with dependencies and milestones |\n| **Sprints** | Agile sprint planning and velocity tracking |\n| **Milestones** | Project milestone tracking with notifications |\n\n## Collaboration\n\n- Real-time document editing\n- Threaded comments on tasks\n- @mentions and notifications\n- Video conferencing integration (Zoom, Google Meet)\n\n## Reporting\n\n- Customizable dashboards\n- Burndown/burnup charts\n- Time tracking reports\n- Export to PDF, CSV, Excel\n\n## Integrations\n\n**Native Integrations (50+):** Slack, Microsoft Teams, Jira, GitHub, GitLab, Figma, Google Drive, Dropbox, Salesforce, HubSpot\n\n**API:** REST API with OAuth 2.0, rate limit 1000 requests/minute\n\n## Mobile\n\n- iOS app (iOS 14+)\n- Android app (Android 8+)\n- Full offline support with sync\n\n---\nAIO-CHUNK-ID: features\nAIO-SOURCE: https://techstartup-demo.com/features\nAIO-VERIFIED: 2026-01-15T01:00:00Z\n---",
+      "hash": "sha256:fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9"
+    },
+    {
+      "id": "about",
+      "format": "markdown",
+      "content": "# About TechStartup\n\n**Founded:** 2022\n**Headquarters:** San Francisco, CA, USA\n**Employees:** 150\n**Customers:** 2,500+ companies\n\n## Funding\n\n| Round | Amount | Lead Investor | Date |\n|:------|:-------|:--------------|:-----|\n| Seed | $5M | Y Combinator | 2022 |\n| Series A | $18M | Andreessen Horowitz | 2023 |\n| Series B | $45M | Sequoia Capital | 2025 |\n\n## Leadership\n\n- **CEO:** Sarah Chen (ex-Google PM)\n- **CTO:** Marcus Johnson (ex-Stripe)\n- **CFO:** Emily Rodriguez (ex-Salesforce)\n\n## Mission\n\nTo make project management effortless for teams of all sizes.\n\n---\nAIO-CHUNK-ID: about\nAIO-SOURCE: https://techstartup-demo.com/about\nAIO-VERIFIED: 2026-01-15T01:00:00Z\n---",
+      "hash": "sha256:3fdba35f04dc8c462986c992bcf875546257113072a909c162f7e470e581e278"
+    },
+    {
+      "id": "contact",
+      "format": "markdown",
+      "content": "# Contact Information\n\n## Sales\n\n- **Email:** sales@techstartup.com\n- **Phone:** +1 (415) 555-0123\n- **Demo Request:** https://techstartup.com/demo\n\n## Support\n\n- **Email:** support@techstartup.com\n- **Help Center:** https://help.techstartup.com\n- **Status Page:** https://status.techstartup.com\n\n## Office\n\n**Address:**\nTechStartup Inc\n123 Market Street, Suite 400\nSan Francisco, CA 94105\nUSA\n\n## Social Media\n\n- Twitter: @techstartup\n- LinkedIn: /company/techstartup\n\n---\nAIO-CHUNK-ID: contact\nAIO-SOURCE: https://techstartup-demo.com/contact\nAIO-VERIFIED: 2026-01-15T01:00:00Z\n---",
+      "hash": "sha256:a8cfcd74832004951b4408cdb0a5dbcd8c7e52d43f7fe244bf720582e05241da"
+    }
+  ]
+}
