@@ -1,0 +1,10 @@
+{
+    "name": "AIO Benchmark Manifest",
+    "links": [
+        {
+            "type": "application/vnd.aio+json",
+            "rel": "alternate",
+            "url": "/index.aio"
+        }
+    ]
+}

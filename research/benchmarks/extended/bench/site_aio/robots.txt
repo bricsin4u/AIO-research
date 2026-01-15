@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# AIO Discovery Signal
+AIO: /index.aio
+Sitemap: https://bench-demo.local/sitemap.xml
