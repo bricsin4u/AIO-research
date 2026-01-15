@@ -1,49 +1,75 @@
-# AIO v2.1: Entropy-Controlled Information Architecture
+# ECIA: Entropy-Controlled Information Architecture
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18251778.svg)](https://doi.org/10.5281/zenodo.18251778)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+**Optimizing the Web for the Machine Age.**
 
-This repository contains the core implementation and benchmark suite for **AI Optimization (AIO)** and **Entropy-Controlled Retrieval (ECR)**, as described in the flagship paper *"Entropy-Controlled Information Architecture: A Unified Framework for Machine-Optimized Content Delivery and Retrieval"*.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Status: Research](https://img.shields.io/badge/Status-Research_Prototype-orange.svg)](private_manuscript/Unified_AIO_ECR_Paper.md)
 
-## 🔬 Theoretical Foundation
+ECIA is a unified framework for machine-optimized content delivery and retrieval. It addresses the fundamental mismatch between **Human-Centric Architecture (HCA)**—designed for visual consumption—and **Machine-Centric Architecture (MCA)**—designed for deterministic processing.
 
-This framework is the first to operationalize the **Theory of Stupidity** (Petrenko, 2025) for machine systems. By treating information delivery as a cybernetic control problem, AIO minimizes environmental entropy ($D$) to protect machine attention ($A$), preventing the "Stupidity Singularity" predicted by the G-formula:
-
-$$ G \propto \frac{D_{eff}}{A} $$
-
-## 🚀 Key Results (Benchmarks)
-
-Our end-to-end benchmark suite (`research/benchmarks/e2e_benchmark.py`) demonstrates:
-- **100% Answer Accuracy**: Eliminating information loss inherent in traditional scraping.
-- **6x Faster Retrieval**: Latency reduced from 29ms to 5ms (average).
-- **27% Token Efficiency**: Significant cost reduction per correct answer.
-
-## 📂 Repository Structure
-
-- `/aio_core`: Reference implementation of the Content Envelope schema and AIO Parser.
-- `/research/benchmarks`: Reproducible scripts for accuracy and latency testing.
-- `/prototype`: Demo server and client implementations.
-- `/specs`: Technical definitions of the `.aio` indexing protocol.
-
-## 🛠 Installation & Usage
-
-```bash
-pip install -r requirements.txt
-python research/benchmarks/run_benchmark.py
-```
-
-## 📜 Citation
-
-If you use this work in your research, please cite:
-
-```bibtex
-@article{petrenko2026unified,
-  title={Entropy-Controlled Information Architecture: A Unified Framework for Machine-Optimized Content Delivery and Retrieval},
-  author={Petrenko, Igor Sergeevich},
-  year={2026},
-  doi={10.5281/zenodo.18251778}
-}
-```
+Grounded in the **Theory of Stupidity (Petrenko, 2025)**, ECIA applies the **Noise Dominance Theorem** to solve the "Attention Tax" problem in AI systems.
 
 ---
-© 2026 Igor Sergeevich Petrenko | AIFUSION Research
+
+## Project Architecture
+
+| Directory | Description |
+|:---|:---|
+| [`aio_core/`](aio_core/) | **Reference Implementation**. Python logic for entropy reduction, signing, and binding. |
+| [`specs/`](specs/) | **Protocols**. Formal AIO v2.1 schema and discovery specifications. |
+| [`prototype/parser/`](prototype/parser/) | **Consumer Drivers**. Multi-language parsers for AI agents. |
+| [`prototype/ecosystem/`](prototype/ecosystem/) | **Publisher Plugins**. Drop-in AIO support for WordPress, Shopify, Cloudflare, etc. |
+| [`rag-prototype/`](rag-prototype/) | **AIO-RAG**. A novel RAG prototype utilizing Intent-Aware Routing & ECR. |
+| [`research/`](research/) | **Academic Foundation**. Benchmarks, theoretical papers, and raw experimental data. |
+| [`prototype/demo-site/`](prototype/demo-site/) | **Implementation Examples**. Reference sites showing AIO in the wild. |
+
+---
+
+## Core Principles
+
+### 1. AIO (AI Optimization) - Publisher Side
+A protocol for publishers to provide pre-optimized, machine-readable views of their content using the `.aio` format. It eliminates "scraping noise" and provides cryptographic integrity.
+
+### 2. ECR (Entropy-Controlled Retrieval) - Consumer Side
+An ingestion and retrieval pipeline that transforms noisy HCA sources into clean **Content Envelopes**. It uses **Intent-Aware Routing** to eliminate hallucinations in RAG systems.
+
+---
+
+## Empirical Results
+
+Our benchmarks demonstrate that replacing traditional scraping with ECIA results in:
+
+*   **100% Fact Accuracy** (vs 57% for scraping) due to explicit structure-narrative binding.
+*   **27% Token Efficiency Gain** per correct answer.
+*   **6x Faster Retrieval** (5ms vs 29ms) via targeted AIO chunking.
+*   **$8.05B Projected Annual Savings** if implemented at Google-search scale.
+
+---
+
+## Getting Started
+
+### For AI Developers (Consumers)
+Utilize the **AIO-Parser** to retrieve machine-ready content envelopes.
+```python
+from aio_parser import parse
+# Automatically detects AIO support or falls back to ECR cleaning
+envelope = parse("https://example.com/pricing")
+print(envelope.narrative) # Clean Markdown
+print(envelope.entities)  # Typed JSON facts (e.g. PriceSpecification)
+```
+
+### For Platform Owners (Publishers)
+Deploy AIO in minutes using our ecosystem plugins:
+- **WordPress**: [Plugins Guide](prototype/ecosystem/plugins/README.md)
+- **Node.js**: [Middleware Documentation](prototype/ecosystem/plugins/nodejs/README.md)
+- **Cloudflare**: [Worker Edge Adapter](prototype/ecosystem/plugins/cloudflare/README.md)
+
+---
+
+## Specifications & Research
+
+- **Technical Spec**: [AIO v2.1 Protocol](specs/aio-schema-v2.1.md)
+- **Theoretical Base**: [Theory of Stupidity (G-Model)](research/cognitive-vulnerability.html)
+- **Full Manuscript**: [Unified ECIA Paper](private_manuscript/Unified_AIO_ECR_Paper.md)
+
+&copy; 2026 AIFUSION Research Laboratory.
