@@ -1,0 +1,131 @@
+{
+    "description": "Test corpus for AIO vs standard scraping benchmark",
+    "version": "1.0",
+    "created": "2026-01-15",
+    "aio_enabled": [
+        {
+            "url": "http://localhost:8000/",
+            "name": "Demo Site - Home",
+            "expected_chunks": [
+                "home"
+            ],
+            "test_queries": [
+                {
+                    "query": "What does TechStartup do?",
+                    "expected_keywords": [
+                        "SaaS",
+                        "project management"
+                    ]
+                }
+            ]
+        },
+        {
+            "url": "http://localhost:8000/pricing",
+            "name": "Demo Site - Pricing",
+            "expected_chunks": [
+                "pricing"
+            ],
+            "test_queries": [
+                {
+                    "query": "What is the price of the Pro plan?",
+                    "expected_keywords": [
+                        "$12",
+                        "user",
+                        "month"
+                    ]
+                },
+                {
+                    "query": "What features are in Enterprise?",
+                    "expected_keywords": [
+                        "SSO",
+                        "SAML",
+                        "dedicated"
+                    ]
+                }
+            ]
+        },
+        {
+            "url": "http://localhost:8000/features",
+            "name": "Demo Site - Features",
+            "expected_chunks": [
+                "features"
+            ],
+            "test_queries": [
+                {
+                    "query": "Does it have Gantt charts?",
+                    "expected_keywords": [
+                        "gantt",
+                        "timeline"
+                    ]
+                },
+                {
+                    "query": "What integrations are available?",
+                    "expected_keywords": [
+                        "Slack",
+                        "Jira",
+                        "GitHub"
+                    ]
+                }
+            ]
+        },
+        {
+            "url": "http://localhost:8000/about",
+            "name": "Demo Site - About",
+            "expected_chunks": [
+                "about"
+            ],
+            "test_queries": [
+                {
+                    "query": "When was the company founded?",
+                    "expected_keywords": [
+                        "2022",
+                        "founded"
+                    ]
+                },
+                {
+                    "query": "How much funding did they raise?",
+                    "expected_keywords": [
+                        "$45M",
+                        "Sequoia",
+                        "Series B"
+                    ]
+                }
+            ]
+        },
+        {
+            "url": "http://localhost:8000/contact",
+            "name": "Demo Site - Contact",
+            "expected_chunks": [
+                "contact"
+            ],
+            "test_queries": [
+                {
+                    "query": "What is the sales email?",
+                    "expected_keywords": [
+                        "sales@techstartup.com"
+                    ]
+                }
+            ]
+        }
+    ],
+    "standard_sites": [
+        {
+            "url": "https://example.com",
+            "name": "Example.com (minimal)",
+            "category": "minimal",
+            "notes": "Very simple page, low noise baseline"
+        }
+    ],
+    "benchmark_config": {
+        "timeout_seconds": 15,
+        "repeat_count": 3,
+        "metrics_to_collect": [
+            "tokens_retrieved",
+            "tokens_relevant",
+            "noise_score",
+            "relevance_ratio",
+            "attention_tax",
+            "response_time_ms"
+        ]
+    }
+}
